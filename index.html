@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World Clock</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #1e1e1e;
+      color: #fff;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    #d1 {
+      color: #888;
+      font-size: 1.25rem;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+    }
+    #t {
+      font-size: 4.5rem;
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 2.5rem;
+    }
+    .cities {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.5rem;
+      text-align: center;
+    }
+    .label {
+      color: #888;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .clock {
+      font-size: 1.4rem;
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+</head>
+<body>
+  <div id="d1"></div>
+  <div id="t"></div>
+  <div class="cities">
+    <div>
+      <div class="label">MONTREAL</div>
+      <div id="c1" class="clock"></div>
+    </div>
+    <div>
+      <div class="label">ARNHEM</div>
+      <div id="c2" class="clock"></div>
+    </div>
+    <div>
+      <div class="label">LOS ANGELES</div>
+      <div id="c3" class="clock"></div>
+    </div>
+  </div>
+
+  <script>
+    const d1 = document.getElementById('d1');
+    const t = document.getElementById('t');
+    const c1 = document.getElementById('c1');
+    const c2 = document.getElementById('c2');
+    const c3 = document.getElementById('c3');
+
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+
+      document.title = `${h}:${m}`;
+      d1.innerText = now.toLocaleDateString([], {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+      t.innerText = now.toLocaleTimeString();
+      c1.innerText = now.toLocaleTimeString([], { timeZone: 'America/Toronto' });
+      c2.innerText = now.toLocaleTimeString([], { timeZone: 'Europe/Amsterdam' });
+      c3.innerText = now.toLocaleTimeString([], { timeZone: 'America/Los_Angeles' });
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
